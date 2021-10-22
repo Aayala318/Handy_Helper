@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Handy Helper</title>
+</head>
+<body>
+    <div class="container">
+        <div style="float: right; padding-top: 10px;">
+            <a href="/jobs">Dashboard</a> | <a href="/logout">Logout</a>
+        </div>
+        <div style="padding-top: 20px;">
+            <h1 class="display-4">Hello {{request.session.greeting}}! These are the job details!</h1>
+        </div>
+        <div class="col-6 px-3">
+            {% for job in job.creator.has_created_jobs.all %}
+                <div>
+                    <h4>{{job.title}}</h4>
+                    <div style="border: 4px solid black;">
+                        <p>{{job.description}}</p>
+                        <p>Location: {{job.location}}</p>
+                        <p>Posted By: {{job.creator.first_name}}</p>
+                        <p>Posted On: {{job.created_at}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

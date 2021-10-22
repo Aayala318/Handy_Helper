@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Handy Helper</title>
+</head>
+<body>
+    <div class="container">
+        <div style="float: right; padding-top: 10px;">
+            <a href="/logout">Logout</a>
+        </div>
+        <div>
+            <h1 class="display-4">Hello {{request.session.greeting}}! Let's edit your job!</h1>
+        </div>
+        <div class="col-6 px-3">
+            <form action="/jobs/{{job.id}}/update" method="POST">
+                {% csrf_token %}
+                {% for message in messages %}
+                    <p class="text-danger small">{{ message }}</p>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="title">Title: <input class="form-control" value="{{job.title}}" type="text" name="title"></label>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location: <input class="form-control" value="{{job.location}}" type="text" name="location"></label>
+                </div>
+                <div class="form-group"></div>
+                    <label for="description">Description: <input class="form-control" value="{{job.description}}" type="text" name="description"></label>
+                </div>
+                <div class="form-group">
+                    <button style="margin-left: 20px;" type="submit" class="btn btn-success">Submit</button>
+                </div>
+                <div class="form-group">
+                    <button style="margin-left: 20px;" class="btn btn-danger"><a style="color: white;" href="/jobs">Cancel</a></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

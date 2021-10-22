@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Handy Helper</title>
+</head>
+<body>
+    <div class="container">
+        <div style="float: right; padding-top: 10px;">
+            <a href="/logout">Logout</a>
+            <button class="btn btn-success"><a style="color: white;" href="jobs/new">New Job!</a></button>
+        </div>
+        <div>
+            <h2 class="display-4">Hello {{request.session.greeting}}</h2>
+        </div>
+        <div>
+            <h3 style="padding-top: 10px;">Everyone's Jobs:</h3>
+        </div>
+            <table style="width: 700px; border: 5px solid black;">
+                <thead>
+                    <tr>
+                        <th>Job</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for job in all_jobs %}
+                    {% if job.creator.id == request.session.user_id %}
+                        <tr>
+                            <td>{{job.title}}</td>
+                            <td>{{job.location}}</td>
+                            <td><a href="jobs/{{job.id}}">View</a> | <a href="jobs/{{job.id}}/edit">Edit</a> | <a href="jobs/{{job.id}}/delete">Remove</a></td>
+                        </tr>
+                    {% elif job.creator.id != request.session.user_id %}
+                        <tr>
+                            <td>{{job.title}}</td>
+                            <td>{{job.location}}</td>
+                            <td><a href="jobs/{{job.id}}">View</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
